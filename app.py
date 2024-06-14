@@ -7,10 +7,10 @@ import spacy
 from textblob import TextBlob
 import ast
 
-# Load the SpaCy model
+
 nlp = spacy.load("en_core_web_sm")
 
-# Load datasets
+
 @st.cache_data
 def load_data():
     dataset1 = pd.read_csv('paper_details_final_data.csv')
@@ -95,7 +95,7 @@ def plot_top_keywords_by_year(year):
             if keyword in tokens:
                 if keyword not in field_keywords:
                     field_keywords[keyword] = Counter()
-                field_keywords[keyword].update([row['year']])  # Assuming 'field' column exists
+                field_keywords[keyword].update([row['year']]) 
 
 
     field_data = pd.DataFrame(field_keywords).fillna(0).astype(int)
@@ -109,7 +109,7 @@ def plot_top_keywords_by_year(year):
     st.pyplot(plt)
 
 # Define the function to plot keyword co-occurrence
-def plot_keyword_cooccurrence():
+def plot_keyword_cooccurrence(top_keywords):
     cooccurrence_matrix = np.zeros((len(top_keywords), len(top_keywords)))
 
     for abstract in filtered_papers['abstract']:
