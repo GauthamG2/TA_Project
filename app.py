@@ -20,8 +20,8 @@ nlp = download_spacy_model()
 # Load datasets
 @st.cache_data
 def load_data():
-    dataset1 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/Project/IEEE DS/paper_details_final_data.csv')
-    dataset2 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/Project/IEEE DS/database.csv')
+    dataset1 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/TA_Project/IEEE DS/paper_details_final_data.csv')
+    dataset2 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/TA_Project/IEEE DS/database.csv')
     return dataset1, dataset2
 
 dataset1, dataset2 = load_data()
