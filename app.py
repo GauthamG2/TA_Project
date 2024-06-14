@@ -90,8 +90,6 @@ def plot_top_keywords_by_year(year):
     plt.grid(True)
     st.pyplot(plt)
 
-# Define the function to plot keyword distribution across different research fields
-def plot_keyword_distribution_by_field(year):
     yearly_data = filtered_papers[filtered_papers['year'] == year]
     field_keywords = {}
 
@@ -102,7 +100,8 @@ def plot_keyword_distribution_by_field(year):
             if keyword in tokens:
                 if keyword not in field_keywords:
                     field_keywords[keyword] = Counter()
-                field_keywords[keyword].update([row['year']])
+                field_keywords[keyword].update([row['year']])  # Assuming 'field' column exists
+
 
     field_data = pd.DataFrame(field_keywords).fillna(0).astype(int)
     field_data.plot(kind='bar', stacked=True, figsize=(15, 7))
