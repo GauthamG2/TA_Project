@@ -8,9 +8,7 @@ from textblob import TextBlob
 import ast
 import numpy as np
 
-
 nlp = spacy.load("en_core_web_sm")
-
 
 @st.cache_data
 def load_data():
@@ -186,27 +184,3 @@ elif analysis == 'Keyword Distribution by Field':
 elif analysis == 'Keyword Co-occurrence':
     st.subheader('Keyword Co-occurrence Matrix')
     plot_keyword_cooccurrence(top_keywords)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
