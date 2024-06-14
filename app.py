@@ -14,7 +14,7 @@ nlp = spacy.load("en_core_web_sm")
 @st.cache_data
 def load_data():
     dataset1 = pd.read_csv('paper_details_final_data.csv')
-    dataset2 = pd.read_csv('another_dataset.csv')
+    dataset2 = pd.read_csv('database.csv')
     return dataset1, dataset2
 
 dataset1, dataset2 = load_data()
