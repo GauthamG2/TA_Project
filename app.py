@@ -131,6 +131,30 @@ def plot_keyword_cooccurrence(top_keywords):
     plt.grid(False)
     st.pyplot(plt)
 
+# Define the function to plot keyword distribution across different research fields
+def plot_keyword_distribution_by_field(year):
+    yearly_data = filtered_papers[filtered_papers['year'] == year]
+    field_keywords = {}
+
+    for _, row in yearly_data.iterrows():
+        doc = nlp(row['abstract'].lower())
+        tokens = [token.text for token in doc if not token.is_stop and not token.is_punct]
+        for keyword in top_keywords:
+            if keyword in tokens:
+                if keyword not in field_keywords:
+                    field_keywords[keyword] = Counter()
+                field_keywords[keyword].update([row['field']])  # Assuming 'field' column exists
+
+    field_data = pd.DataFrame(field_keywords).fillna(0).astype(int)
+    field_data.plot(kind='bar', stacked=True, figsize=(15, 7))
+    plt.title(f'Keyword Distribution Across Different Research Fields in {year}')
+    plt.xlabel('Research Fields')
+    plt.ylabel('Count')
+    plt.legend(title='Keywords', bbox_to_anchor=(1.05, 1), loc='upper left')
+    plt.xticks(rotation=45)
+    plt.grid(True)
+    st.pyplot(plt)
+
 # Streamlit app layout
 st.title('Research Paper Analysis')
 st.sidebar.title('Select Analysis')
