@@ -6,14 +6,12 @@ from collections import Counter
 import spacy
 from textblob import TextBlob
 import ast
-import numpy as np
 
-
-import spacy.cli
+# Ensure spaCy model is downloaded
 spacy.cli.download("en_core_web_sm")
 nlp = spacy.load("en_core_web_sm")
 
-
+# Load datasets
 @st.cache_data
 def load_data():
     dataset1 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/Project/IEEE DS/paper_details_final_data.csv')
@@ -21,6 +19,10 @@ def load_data():
     return dataset1, dataset2
 
 dataset1, dataset2 = load_data()
+
+# Print columns to debug
+st.write("Dataset 1 columns:", dataset1.columns)
+st.write("Dataset 2 columns:", dataset2.columns)
 
 # Extract top 10 keywords
 @st.cache_data
@@ -95,12 +97,12 @@ def plot_keyword_distribution_by_field(year):
 
     for _, row in yearly_data.iterrows():
         doc = nlp(row['abstract'].lower())
-        tokens = [token.text for token in doc if not token.is_stop and not token.is_punct]
+        tokens = [token.text for token in doc if not token is_stop and not token is_punct]
         for keyword in top_keywords:
             if keyword in tokens:
                 if keyword not in field_keywords:
                     field_keywords[keyword] = Counter()
-                field_keywords[keyword].update([row['year']])
+                field_keywords[keyword].update([row['year']])  # Assuming 'field' column exists
 
     field_data = pd.DataFrame(field_keywords).fillna(0).astype(int)
     field_data.plot(kind='bar', stacked=True, figsize=(15, 7))
@@ -118,7 +120,7 @@ def plot_keyword_cooccurrence():
 
     for abstract in filtered_papers['abstract']:
         doc = nlp(abstract.lower())
-        tokens = [token.text for token in doc if not token.is_stop and not token.is_punct]
+        tokens = [token.text for token in doc if not token.is_stop and not token is_punct]
         keywords_in_abstract = [keyword for keyword in tokens if keyword in top_keywords]
 
         for i, keyword1 in enumerate(top_keywords):
@@ -134,29 +136,29 @@ def plot_keyword_cooccurrence():
     plt.grid(False)
     st.pyplot(plt)
 
-
+# Streamlit app layout
 st.title('Research Paper Analysis')
 st.sidebar.title('Select Analysis')
 
-
+# Dropdown menu for selecting the analysis
 analysis = st.sidebar.selectbox('Analysis', ['Keyword Trends Over Time', 'Top Keywords by Year', 'Keyword Distribution by Field', 'Keyword Co-occurrence'])
 
 if analysis == 'Keyword Trends Over Time':
-
+    # Create a dropdown menu with the top 10 keywords
     keyword = st.sidebar.selectbox('Keyword', top_keywords)
     if keyword:
         st.subheader(f'Temporal Trend of Keyword: {keyword}')
         plot_keyword_trends(keyword)
 
 elif analysis == 'Top Keywords by Year':
-
+    # Create a dropdown menu with the years
     year = st.sidebar.selectbox('Year', filtered_papers['year'].unique())
     if year:
         st.subheader(f'Top 3 Keywords in {year}')
         plot_top_keywords_by_year(year)
 
 elif analysis == 'Keyword Distribution by Field':
-
+    # Create a dropdown menu with the years
     year = st.sidebar.selectbox('Year', filtered_papers['year'].unique())
     if year:
         st.subheader(f'Keyword Distribution Across Different Research Fields in {year}')
@@ -165,6 +167,22 @@ elif analysis == 'Keyword Distribution by Field':
 elif analysis == 'Keyword Co-occurrence':
     st.subheader('Keyword Co-occurrence Matrix')
     plot_keyword_cooccurrence()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
