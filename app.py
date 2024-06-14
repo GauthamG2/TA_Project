@@ -13,15 +13,11 @@ nlp = spacy.load("en_core_web_sm")
 # Load datasets
 @st.cache_data
 def load_data():
-    dataset1 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/Project/IEEE DS/paper_details_final_data.csv')
-    dataset2 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/Project/IEEE DS/database.csv')
+    dataset1 = pd.read_csv('paper_details_final_data.csv')
+    dataset2 = pd.read_csv('another_dataset.csv')
     return dataset1, dataset2
 
 dataset1, dataset2 = load_data()
-
-# Print columns to debug
-st.write("Dataset 1 columns:", dataset1.columns)
-st.write("Dataset 2 columns:", dataset2.columns)
 
 # Extract top 10 keywords
 @st.cache_data
