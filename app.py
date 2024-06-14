@@ -7,8 +7,7 @@ import spacy
 from textblob import TextBlob
 import ast
 
-# Ensure spaCy model is downloaded
-spacy.cli.download("en_core_web_sm")
+# Load the SpaCy model
 nlp = spacy.load("en_core_web_sm")
 
 # Load datasets
