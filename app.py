@@ -7,21 +7,14 @@ import spacy
 from textblob import TextBlob
 import ast
 
-# Ensure spaCy model is downloaded
-def download_spacy_model():
-    try:
-        nlp = spacy.load("en_core_web_sm")
-    except OSError:
-        subprocess.run([sys.executable, "-m", "spacy", "download", "en_core_web_sm"])
-        nlp = spacy.load("en_core_web_sm")
-    return nlp
+# Load the SpaCy model
+nlp = spacy.load("en_core_web_sm")
 
-nlp = download_spacy_model()
 # Load datasets
 @st.cache_data
 def load_data():
-    dataset1 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/TA_Project/IEEE DS/paper_details_final_data.csv')
-    dataset2 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/TA_Project/IEEE DS/database.csv')
+    dataset1 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/Project/IEEE DS/paper_details_final_data.csv')
+    dataset2 = pd.read_csv('/Users/gautham/Documents/USI/Sem 2/Text Analysis and Spatial Data for Economists/Project/IEEE DS/database.csv')
     return dataset1, dataset2
 
 dataset1, dataset2 = load_data()
