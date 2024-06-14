@@ -119,7 +119,7 @@ def plot_keyword_cooccurrence():
 
     for abstract in filtered_papers['abstract']:
         doc = nlp(abstract.lower())
-        tokens = [token.text for token in doc if not token.is_stop and not token is_punct]
+        tokens = [token.text for token in doc if not token.is_stop and not token.is_punct]
         keywords_in_abstract = [keyword for keyword in tokens if keyword in top_keywords]
 
         for i, keyword1 in enumerate(top_keywords):
